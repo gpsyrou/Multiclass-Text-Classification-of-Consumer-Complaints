@@ -33,6 +33,25 @@ import pandas as pd
 project_dir = 'C:\\Users\\george\\Desktop\\GitHub\\Projects\\Consumer_Complaints'
 os.chdir(project_dir)
 
-data = pd.read_csv(os.path.join(project_dir,
-                                'Data\cons_complaints_dataset.csv'))
-small = data.iloc[0:1000]
+cons_complaints_df = pd.read_csv(
+        os.path.join(project_dir, 'Data\cons_complaints_dataset.csv'))
+
+
+
+cons_complaints_df.dtypes()
+# The only column that is not text is the ID of the complaint
+
+
+cons_complaints_df.columns
+
+# Main purpose of this project is to use the 'Consumer complaint narrative'
+# column, in order to predict to which category (defined by 'Product' column)
+# the complaint belongs to.
+
+
+
+
+
+
+
+
