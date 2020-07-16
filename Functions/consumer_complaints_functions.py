@@ -7,7 +7,7 @@ File: Contains the functions used for the Consumer Complaints project
 """
 
 import matplotlib.pyplot as plt
-import searborn as sns
+import seaborn as sns
 
 def plotNumberOfObservationsPerCategory(input_df):
     

@@ -10,6 +10,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from Functions import consumer_complaints_functions as ccf
+
 project_dir = 'C:\\Users\\george\\Desktop\\GitHub\\Projects\\Consumer_Complaints'
 os.chdir(project_dir)
 
@@ -38,11 +40,7 @@ complaints_df.isnull().sum(axis=0)
 # Identify the amount of times that each Category (Product) is present in our
 # dataset. We have no missing values for this column, so no imputation method
 # is necessary.
-
-plt.figure(figsize=(8,10))
-sns.countplot(y=complaints_df['Product'],
-              order = complaints_df['Product'].value_counts().index)
-plt.title('Number of Observations per Product Category', fontweight="bold")
+ccf.plotNumberOfObservationsPerCategory(complaints_df)
 
 # Find states that most complaints have been submitted to
 most_complaints = complaints_df[['Complaint ID',
@@ -65,4 +63,9 @@ plt.title('States with the most number of complaints', fontweight="bold")
 compl_w_text = complaints_df[complaints_df
                                 ['Consumer complaint narrative'].notnull()]
 
+ccf.plotNumberOfObservationsPerCategory(compl_w_text)
+# Its interesting to see that the category with the most complaints is now
+# the 'Credit reporting, credit repair services, or other personal consumer
+# reports' instead of 'Mortgage' that was first when we were using the whole
+# dataset.
 
