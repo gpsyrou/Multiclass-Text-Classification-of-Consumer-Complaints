@@ -56,7 +56,7 @@ plt.figure(figsize=(10,8))
 sns.barplot(x=most_complaints.index[0:top_n], y=('Complaint ID','count'),
             data = most_complaints[0:top_n])
 plt.ylabel('Number of complaints')
-plt.title('States with the most number of complaints')
+plt.title('States with the most number of complaints', fontweight="bold")
 
 
 # Filter the dataset to retain only the rows for which the
@@ -64,4 +64,5 @@ plt.title('States with the most number of complaints')
 # from the consumer regarding the complaint that they are submitting)
 compl_w_text = complaints_df[complaints_df
                                 ['Consumer complaint narrative'].notnull()]
+
 
