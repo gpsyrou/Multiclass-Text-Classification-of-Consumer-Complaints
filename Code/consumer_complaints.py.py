@@ -10,7 +10,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from Functions import consumer_complaints_functions as ccf
 
 project_dir = 'C:\\Users\\george\\Desktop\\GitHub\\Projects\\Consumer_Complaints'
 os.chdir(project_dir)
@@ -40,6 +39,8 @@ complaints_df.isnull().sum(axis=0)
 # Identify the amount of times that each Category (Product) is present in our
 # dataset. We have no missing values for this column, so no imputation method
 # is necessary.
+from Functions import consumer_complaints_functions as ccf
+
 ccf.plotNumberOfObservationsPerCategory(complaints_df)
 
 # Find states that most complaints have been submitted to
