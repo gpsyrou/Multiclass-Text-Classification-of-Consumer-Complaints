@@ -49,6 +49,7 @@ most_complaints_by_state = complaints_df[['Complaint ID',
 
 most_complaints_by_state = most_complaints_by_state.sort_values(
         by=[('Complaint ID','count')], ascending=False)
+
 # Plot the results
 top_n = 10 
 
@@ -60,8 +61,19 @@ sns.barplot(x=most_complaints_by_state.index[0:top_n],
 plt.ylabel('Number of complaints')
 plt.title('States with the most number of complaints', fontweight="bold")
 
-# Find companies with the most number of complaints
+# Find companies that received the most complaints from their consumers
+most_complaints_by_company = complaints_df[['Complaint ID',
+                    'Company']].groupby(['Company']).agg(['count'])
 
+most_complaints_by_company = most_complaints_by_company.sort_values(
+        by=[('Complaint ID','count')], ascending=False)
+
+top_n = 5 
+
+plt.figure(figsize=(12,10))
+sns.barplot(x=most_complaints_by_company.index[0:top_n],
+            y=('Complaint ID','count'),
+            data = most_complaints_by_company[0:top_n])
 
 # Filter the dataset to retain only the rows for which the
 # 'Consumer complaint narrative' column is populated (i.e. we have input
