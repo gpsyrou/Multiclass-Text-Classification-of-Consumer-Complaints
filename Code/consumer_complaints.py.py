@@ -44,18 +44,23 @@ from Functions import consumer_complaints_functions as ccf
 ccf.plotNumberOfObservationsPerCategory(complaints_df)
 
 # Find states that most complaints have been submitted to
-most_complaints = complaints_df[['Complaint ID',
+most_complaints_by_state = complaints_df[['Complaint ID',
                     'State']].groupby(['State']).agg(['count'])
 
-most_complaints = most_complaints.sort_values(by=[('Complaint ID','count')],
-                                                  ascending=False)
+most_complaints_by_state = most_complaints_by_state.sort_values(
+        by=[('Complaint ID','count')], ascending=False)
 # Plot the results
 top_n = 10 
+
 plt.figure(figsize=(10,8))
-sns.barplot(x=most_complaints.index[0:top_n], y=('Complaint ID','count'),
-            data = most_complaints[0:top_n])
+sns.barplot(x=most_complaints_by_state.index[0:top_n],
+            y=('Complaint ID','count'),
+            data = most_complaints_by_state[0:top_n])
+
 plt.ylabel('Number of complaints')
 plt.title('States with the most number of complaints', fontweight="bold")
+
+# Find companies with the most number of complaints
 
 
 # Filter the dataset to retain only the rows for which the
