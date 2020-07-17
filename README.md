@@ -14,3 +14,6 @@ https://catalog.data.gov/dataset/consumer-complaint-database
 
 Useful links:
 1. https://www.kaggle.com/janiobachmann/evaluating-customer-service-sentiment-analysis
+2. https://towardsdatascience.com/multi-class-text-classification-with-scikit-learn-12f1e60e0a9f
+3. https://www.kaggle.com/selener/multi-class-text-classification-tfidf
+4. https://www.kaggle.com/selener/consumer-complaint-database
