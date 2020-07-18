@@ -14,20 +14,22 @@ import seaborn as sns
 project_dir = 'C:\\Users\\george\\Desktop\\GitHub\\Projects\\Consumer_Complaints'
 os.chdir(project_dir)
 
-complaints_df = pd.read_csv(
+compl_full = pd.read_csv(
         os.path.join(project_dir, 'Data\cons_complaints_dataset.csv'))
 
 
-complaints_df.dtypes
+compl_full.dtypes
 # The only column that is not text is the ID of the complaint
 
 # Have a look at what columns the dataset contains
-complaints_df.columns
+compl_full.columns
 
 
 # Identify how many missing values we have per column
-complaints_df.isnull().sum(axis=0)
+compl_full.isnull().sum(axis=0)
 
+# Get the year that the complaint took place as a separate column
+compl_full['Year'] = compl_full['Date received'].apply(lambda x: int(x[-4:]))
 
 # Part 1. Exploratory Data Analysis (EDA)
 
@@ -40,14 +42,14 @@ complaints_df.isnull().sum(axis=0)
 # is necessary.
 from Functions import consumer_complaints_functions as ccf
 
-ccf.plotNumberOfObservationsPerCategory(complaints_df)
+ccf.plotNumberOfObservationsPerCategory(compl_full)
 
 # Find states that most complaints have been submitted to
-ccf.plotTopComplaints(complaints_df,
+ccf.plotTopComplaints(compl_full,
                       agg_col='State', top_n=10, bottom=False)
 
 # Find companies that received the most complaints from their consumers
-ccf.plotTopComplaints(complaints_df,
+ccf.plotTopComplaints(compl_full,
                       agg_col='Company', top_n=10, bottom=False)
 
 
@@ -55,8 +57,7 @@ ccf.plotTopComplaints(complaints_df,
 # Filter the dataset to retain only the rows for which the
 # 'Consumer complaint narrative' column is populated (i.e. we have input
 # from the consumer regarding the complaint that they are submitting)
-compl_w_text = complaints_df[complaints_df
-                                ['Consumer complaint narrative'].notnull()]
+compl_w_text = compl_full[compl_full['Consumer complaint narrative'].notnull()]
 
 ccf.plotNumberOfObservationsPerCategory(compl_w_text)
 # Its interesting to see that the category with the most complaints is now
