@@ -11,13 +11,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 def plotNumberOfObservationsPerCategory(input_df):
-    
+
     plt.figure(figsize=(8,10))
     sns.countplot(y=input_df['Product'],
                   order = input_df['Product'].value_counts().index)
     plt.title('Number of Observations per Product Category', fontweight="bold")
-    
+
+
 
 def plotTopComplaints(input_df: pd.core.frame.DataFrame,
                       agg_col: str, top_n: int, bottom=False, figsize=(10,8)):
@@ -27,7 +29,7 @@ def plotTopComplaints(input_df: pd.core.frame.DataFrame,
     
     The function returns a barplot object showing the results of the above
     calculation.
-    
+
     Args:
     ----
     agg_col: Name of the column that we want to base the aggregation
@@ -40,13 +42,14 @@ def plotTopComplaints(input_df: pd.core.frame.DataFrame,
     
         most_cmplts = most_cmplts.sort_values(
                 by=[('Complaint ID','count')], ascending=bottom)
-            
+
         plt.figure(figsize=figsize)
         sns.barplot(x=most_cmplts.index[0:top_n], y=('Complaint ID','count'),
                     data = most_cmplts[0:top_n])
-        
+
         plt.ylabel('Number of complaints')
         plt.title(f'{agg_col} with the most number of complaints',
                   fontweight="bold")
     except KeyError:
         print('agg_col does not correspond to a column that exists')
+

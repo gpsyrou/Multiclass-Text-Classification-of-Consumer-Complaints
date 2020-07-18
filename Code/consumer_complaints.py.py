@@ -43,10 +43,12 @@ from Functions import consumer_complaints_functions as ccf
 ccf.plotNumberOfObservationsPerCategory(complaints_df)
 
 # Find states that most complaints have been submitted to
-ccf.plotTopComplaints(complaints_df, agg_col='State', top_n=10, bottom=False)
+ccf.plotTopComplaints(complaints_df,
+                      agg_col='State', top_n=10, bottom=False)
 
 # Find companies that received the most complaints from their consumers
-ccf.plotTopComplaints(complaints_df, agg_col='Company', top_n=10, bottom=False)
+ccf.plotTopComplaints(complaints_df,
+                      agg_col='Company', top_n=10, bottom=False)
 
 
 
