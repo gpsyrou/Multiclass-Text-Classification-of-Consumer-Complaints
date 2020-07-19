@@ -24,6 +24,9 @@ compl_full.dtypes
 # Have a look at what columns the dataset contains
 compl_full.columns
 
+# Renaming the predictor column for ease of use
+compl_full.rename(columns={'Consumer complaint narrative':'Complaint'},
+                  inplace=True)
 
 # Identify how many missing values we have per column
 compl_full.isnull().sum(axis=0)
@@ -57,7 +60,7 @@ ccf.plotTopComplaints(compl_full,
 # Filter the dataset to retain only the rows for which the
 # 'Consumer complaint narrative' column is populated (i.e. we have input
 # from the consumer regarding the complaint that they are submitting)
-compl_w_text = compl_full[compl_full['Consumer complaint narrative'].notnull()]
+compl_w_text = compl_full[compl_full['Complaint'].notnull()]
 
 ccf.plotNumberOfObservationsPerCategory(compl_w_text, col='Product')
 # Its interesting to see that the category with the most complaints is now
@@ -67,10 +70,12 @@ ccf.plotNumberOfObservationsPerCategory(compl_w_text, col='Product')
 
 # Part 2. Preprocessing
 
+# Preprocessing - Target Variable
+
 # In order to build our classification model, we will need only the
 # 'Consumer complaint narrative' column as the predictor  variable
 #  and 'Product' as the target variable
-relevant_cols = ['Consumer complaint narrative', 'Product']
+relevant_cols = ['Complaint', 'Product']
 main_df = compl_w_text[relevant_cols]
 
 print(f'There are {main_df.shape[0]} instances of complaints distributed among '
@@ -91,5 +96,12 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 # achieving high accuracy scores, while this will be due to the fact that its
 # only predicting correctly the majority class.
 
+# Preprocessing - Predictor variable
 
+# Most of the algorithms do not work well when they have to deal with text data
+# in their raw form. To solve this issue we will work with some techniques such
+# like the bag of words and TF-IDF.
+
+# Bag of words refers to the process of creating a vector of word counts inside
+# a document (which in our case refers to the complaints)
 
