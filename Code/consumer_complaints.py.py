@@ -65,3 +65,8 @@ ccf.plotNumberOfObservationsPerCategory(compl_w_text)
 # reports' instead of 'Mortgage' that was first when we were using the whole
 # dataset.
 
+# Part 2. Preprocessing
+
+# In order to build our classification model, we will need only the
+# 'Consumer complaint narrative' column as the predictor  variable
+#  and 'Product' as the target variable
