@@ -70,3 +70,12 @@ ccf.plotNumberOfObservationsPerCategory(compl_w_text)
 # In order to build our classification model, we will need only the
 # 'Consumer complaint narrative' column as the predictor  variable
 #  and 'Product' as the target variable
+relevant_cols = ['Consumer complaint narrative', 'Product']
+main_df = compl_w_text[relevant_cols]
+
+print(f'There are {main_df.shape[0]} instances of complaints distributed among '
+                   f'{len(main_df.Product.unique())} different categories')
+
+
+
+
