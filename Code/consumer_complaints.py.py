@@ -76,6 +76,8 @@ main_df = compl_w_text[relevant_cols]
 print(f'There are {main_df.shape[0]} instances of complaints distributed among '
                    f'{len(main_df.Product.unique())} different categories')
 
+# We are going to transform the Product from text into numerical values
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
-
-
+lab_enc = LabelEncoder()
+main_df['Category'] = lab_enc.fit_transform(main_df['Product'])
