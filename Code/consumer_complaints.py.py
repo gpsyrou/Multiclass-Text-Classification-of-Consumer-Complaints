@@ -42,7 +42,7 @@ compl_full['Year'] = compl_full['Date received'].apply(lambda x: int(x[-4:]))
 # is necessary.
 from Functions import consumer_complaints_functions as ccf
 
-ccf.plotNumberOfObservationsPerCategory(compl_full)
+ccf.plotNumberOfObservationsPerCategory(compl_full, col='Product')
 
 # Find states that most complaints have been submitted to
 ccf.plotTopComplaints(compl_full,
@@ -59,7 +59,7 @@ ccf.plotTopComplaints(compl_full,
 # from the consumer regarding the complaint that they are submitting)
 compl_w_text = compl_full[compl_full['Consumer complaint narrative'].notnull()]
 
-ccf.plotNumberOfObservationsPerCategory(compl_w_text)
+ccf.plotNumberOfObservationsPerCategory(compl_w_text, col='Product')
 # Its interesting to see that the category with the most complaints is now
 # the 'Credit reporting, credit repair services, or other personal consumer
 # reports' instead of 'Mortgage' that was first when we were using the whole
@@ -81,3 +81,15 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
 lab_enc = LabelEncoder()
 main_df['Category'] = lab_enc.fit_transform(main_df['Product'])
+
+ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
+# We can observe that our dataset it's highly imbalanced regarding the
+# distribution of the product categories. Most of the product are falling under
+# the credit reporting, debit collection and mortgage categories. Imbalanced 
+# datasets can usually be a major issue as they can lead to misleading results.
+# This is because the algorithm will seem to be predicting 'correctly' and 
+# achieving high accuracy scores, while this will be due to the fact that its
+# only predicting correctly the majority class.
+
+
+
