@@ -78,6 +78,8 @@ ccf.plotNumberOfObservationsPerCategory(compl_w_text, col='Product')
 relevant_cols = ['Complaint', 'Product']
 main_df = compl_w_text[relevant_cols]
 
+main_df.shape
+
 print(f'There are {main_df.shape[0]} instances of complaints distributed among'
                    f' {len(main_df.Product.unique())} different categories')
 
@@ -113,3 +115,10 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 # significance for that document if they do not appear in other documents. On
 # the other hand, common words like 'and' and 'the' are usually common in all
 # documents and therefore they do not provide much information.
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+tfidf = TfidfVectorizer(analyzer='word', encoding='utf-8',
+                        norm='l2', stop_words='english')
+
+feat = tfidf.fit_transform(main_df.Complaint).toarray()
