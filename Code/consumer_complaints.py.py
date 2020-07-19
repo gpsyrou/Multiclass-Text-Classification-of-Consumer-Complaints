@@ -78,8 +78,8 @@ ccf.plotNumberOfObservationsPerCategory(compl_w_text, col='Product')
 relevant_cols = ['Complaint', 'Product']
 main_df = compl_w_text[relevant_cols]
 
-print(f'There are {main_df.shape[0]} instances of complaints distributed among '
-                   f'{len(main_df.Product.unique())} different categories')
+print(f'There are {main_df.shape[0]} instances of complaints distributed among'
+                   f' {len(main_df.Product.unique())} different categories')
 
 # We are going to transform the Product from text into numerical values
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
@@ -102,6 +102,14 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 # in their raw form. To solve this issue we will work with some techniques such
 # like the bag of words and TF-IDF.
 
-# Bag of words refers to the process of creating a vector of word counts inside
-# a document (which in our case refers to the complaints)
+# Bag of words refers to the process of creating a vector of word counts of
+# a document (which in our case refers to the complaints made by the consumers)
+# In simple words, its the number that each word appears in a document. Please
+# have in mind that Bag of Words does not take into consideration the order of
+# the words neither any grammatical rules.
 
+# TF-IDF is being used to get an understanding of how relevant a word is on a 
+# document. Word that appear many times in one document are getting higher
+# significance for that document if they do not appear in other documents. On
+# the other hand, common words like 'and' and 'the' are usually common in all
+# documents and therefore they do not provide much information.
