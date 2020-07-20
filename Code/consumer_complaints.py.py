@@ -90,6 +90,19 @@ lab_enc = LabelEncoder()
 main_df['Category'] = lab_enc.fit_transform(main_df['Product'])
 
 ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
+
+
+# To do
+
+# 1. Split each of the rows (corresponding to a complaint) into tokens (tokenizing)
+# 2. Lemmatize each of the above
+# 3. Split the data to train and test sets
+# 4. Create the pipeline
+# 5. Create the parameter Grid
+# 6. Fit the model
+# 7. Review performance
+
+
 # We can observe that our dataset it's highly imbalanced regarding the
 # distribution of the product categories. Most of the product are falling under
 # the credit reporting, debit collection and mortgage categories. Imbalanced 
