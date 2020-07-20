@@ -118,7 +118,7 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-tfidf = TfidfVectorizer(analyzer='word', encoding='utf-8',
+tfidf = TfidfVectorizer(analyzer='word', encoding='utf-8', min_df=10,
                         norm='l2', stop_words='english')
 
-feat = tfidf.fit_transform(main_df.Complaint).toarray()
+feat = tfidf.fit_transform(main_df.Complaint) # feat.data gives me the array

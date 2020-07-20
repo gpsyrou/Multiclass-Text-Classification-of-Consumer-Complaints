@@ -17,3 +17,4 @@ Useful links:
 2. https://towardsdatascience.com/multi-class-text-classification-with-scikit-learn-12f1e60e0a9f
 3. https://www.kaggle.com/selener/multi-class-text-classification-tfidf
 4. https://www.kaggle.com/selener/consumer-complaint-database
+5. https://www.quora.com/How-can-one-reduce-the-TFIDF-model-size-without-reducing-the-accuracy-significantly
