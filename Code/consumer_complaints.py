@@ -92,15 +92,26 @@ main_df['Category'] = lab_enc.fit_transform(main_df['Product'])
 ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 
 
-# To do
 
 # 1. Split each of the rows (corresponding to a complaint) into tokens (tokenizing)
+from nltk import word_tokenize
+
+a = main_df['Complaint'].values
+
+main_df['Complaint_Clean'] = main_df['Complaint'].apply(lambda x: word_tokenize(x))
+
+
 # 2. Lemmatize each of the above
 # 3. Split the data to train and test sets
 # 4. Create the pipeline
 # 5. Create the parameter Grid
 # 6. Fit the model
 # 7. Review performance
+
+
+
+
+
 
 
 # We can observe that our dataset it's highly imbalanced regarding the
