@@ -94,11 +94,11 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 
 
 # 1. Split each of the rows (corresponding to a complaint) into tokens (tokenizing)
+# and remove stopwords
 from nltk import word_tokenize
 
-a = main_df['Complaint'].values
-
-main_df['Complaint_Clean'] = main_df['Complaint'].apply(lambda x: word_tokenize(x))
+main_df['Complaint_Clean'] = main_df['Complaint'].apply(
+        lambda x: word_tokenize(x))
 
 
 # 2. Lemmatize each of the above
