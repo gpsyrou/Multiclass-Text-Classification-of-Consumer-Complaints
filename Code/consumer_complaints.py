@@ -150,7 +150,7 @@ res = df_partitioned.map_partitions(lambda df: df.apply((lambda x:
 # the other hand, common words like 'and' and 'the' are usually common in all
 # documents and therefore they do not provide much information.
 
- '''
+'''
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 tfidf = TfidfVectorizer(analyzer='word', encoding='utf-8', min_df=10,
