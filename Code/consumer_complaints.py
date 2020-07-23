@@ -10,9 +10,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-import re
-
-
 project_dir = 'C:\\Users\\george\\Desktop\\GitHub\\Projects\\Consumer_Complaints'
 os.chdir(project_dir)
 
@@ -99,64 +96,12 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 # and remove stopwords
 
 # Tokenize
-import string 
-from nltk import word_tokenize
-from nltk.corpus import stopwords
 
-stop_words = set(stopwords.words('english')) 
+main_df['Complaint_Tokenized'] = main_df.apply(lambda x: ccf.tokenize_sentence
+       (x['Complaint'], rm_stopwords=True, rm_punctuation=True), axis=1)
 
-main_df['Complaint_Clean'] = main_df['Complaint'].apply(
-        lambda x: word_tokenize(x))
-
-
-# Remove Stopwords
-def tokenize_sentence(sentence: str, remove_stopwords=True,
-                      remove_punctuation=True) -> list:
-    """
-    Tokenize a given string, and return the words as a list.
-    The function offers functionality to exclude the words that are either
-    a stopword or punctuation.
-    """
-    tokenized = word_tokenize(sentence)
-    
-    if remove_stopwords is True:
-        tokenized = [x for x in tokenized if x not in stop_words]
-     
-    if remove_punctuation is True:
-        tokenized = [x for x in tokenized if x not in string.punctuation]
-    
-    return tokenized
 
 # 2. Lemmatize each of the above
-from nltk import WordNetLemmatizer
-
-def lemmatize_sentence(sentence, return_form = 'string'):
-    """
-    Lemmatize a given string . 
-    
-    Input:
-    ------
-        sentence: 
-            Sentence that we want to lemmatize each word. The input can be
-            of the form of tokens (list) or the complete sentence (string).
-        return_form: 
-            Format of the return function. Can be either a string
-            with the concatenated lemmatized words or a list of the 
-            lemmatized words.
-    Returns:
-    -------
-        If join_string = True then the function returns the
-        lemmatized words as a sentence. Else it returns the words as a list.
-    """
-    # Handle the case where the input is the string without being tokenized
-    if type(sentence) != list:
-        sentence = re.findall(r"[\w']+|[.,!?;]", sentence)
-
-    lemmatizer = WordNetLemmatizer()
-    if return_form == 'string':
-        return ' '.join([lemmatizer.lemmatize(word) for word in sentence])
-    else:
-        return [lemmatizer.lemmatize(word) for word in sentence]
 
 # 3. Split the data to train and test sets
 # 4. Create the pipeline

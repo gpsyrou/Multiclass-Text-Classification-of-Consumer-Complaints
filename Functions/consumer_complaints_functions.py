@@ -7,9 +7,17 @@ File: Contains the functions used for the Consumer Complaints project
 """
 
 import pandas as pd
+import re
 
 import matplotlib.pyplot as plt
 import seaborn as sns
+
+import string 
+from nltk import word_tokenize
+from nltk.corpus import stopwords
+from nltk import WordNetLemmatizer
+
+stop_words = set(stopwords.words('english')) 
 
 
 def plotNumberOfObservationsPerCategory(input_df: pd.core.frame.DataFrame,
@@ -54,3 +62,50 @@ def plotTopComplaints(input_df: pd.core.frame.DataFrame,
     except KeyError:
         print('agg_col does not correspond to a column that exists')
 
+
+# Remove Stopwords
+def tokenize_sentence(sentence: str, rm_stopwords=True,
+                      rm_punctuation=True) -> list:
+    """
+    Tokenize a given string, and return the words as a list.
+    The function offers functionality to exclude the words that are either
+    a stopword or punctuation.
+    """
+    tokenized = word_tokenize(sentence)
+    
+    if rm_stopwords is True:
+        tokenized = [x for x in tokenized if x not in stop_words]
+     
+    if rm_punctuation is True:
+        tokenized = [x for x in tokenized if x not in string.punctuation]
+    
+    return tokenized
+
+
+def lemmatize_sentence(sentence, return_form = 'string'):
+    """
+    Lemmatize a given string . 
+    
+    Input:
+    ------
+        sentence: 
+            Sentence that we want to lemmatize each word. The input can be
+            of the form of tokens (list) or the complete sentence (string).
+        return_form: 
+            Format of the return function. Can be either a string
+            with the concatenated lemmatized words or a list of the 
+            lemmatized words.
+    Returns:
+    -------
+        If join_string = True then the function returns the
+        lemmatized words as a sentence. Else it returns the words as a list.
+    """
+    # Handle the case where the input is the string without being tokenized
+    if type(sentence) != list:
+        sentence = re.findall(r"[\w']+|[.,!?;]", sentence)
+
+    lemmatizer = WordNetLemmatizer()
+    if return_form == 'string':
+        return ' '.join([lemmatizer.lemmatize(word) for word in sentence])
+    else:
+        return [lemmatizer.lemmatize(word) for word in sentence]
