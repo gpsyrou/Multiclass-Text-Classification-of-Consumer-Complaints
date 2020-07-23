@@ -99,14 +99,33 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 # and remove stopwords
 
 # Tokenize
+import string 
 from nltk import word_tokenize
+from nltk.corpus import stopwords
+
+stop_words = set(stopwords.words('english')) 
 
 main_df['Complaint_Clean'] = main_df['Complaint'].apply(
         lambda x: word_tokenize(x))
 
+
 # Remove Stopwords
-
-
+def tokenize_sentence(sentence: str, remove_stopwords=True,
+                      remove_punctuation=True) -> list:
+    """
+    Tokenize a given string, and return the words as a list.
+    The function offers functionality to exclude the words that are either
+    a stopword or punctuation.
+    """
+    tokenized = word_tokenize(sentence)
+    
+    if remove_stopwords is True:
+        tokenized = [x for x in tokenized if x not in stop_words]
+     
+    if remove_punctuation is True:
+        tokenized = [x for x in tokenized if x not in string.punctuation]
+    
+    return tokenized
 
 # 2. Lemmatize each of the above
 from nltk import WordNetLemmatizer
