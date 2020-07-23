@@ -10,6 +10,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+import re
+
 
 project_dir = 'C:\\Users\\george\\Desktop\\GitHub\\Projects\\Consumer_Complaints'
 os.chdir(project_dir)
@@ -111,7 +113,7 @@ def lemmatize_sentence(sentence, join_string = True):
     """
     # Handle the case where the input is the string without being tokenized
     if type(sentence) != list:
-        sentence = sentence.split()
+        sentence = re.findall(r"[\w']+|[.,!?;]", sentence)
 
     lemmatizer = WordNetLemmatizer()
     if join_string is True:
