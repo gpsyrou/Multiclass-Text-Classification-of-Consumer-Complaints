@@ -102,6 +102,17 @@ main_df['Complaint_Clean'] = main_df['Complaint'].apply(
 
 
 # 2. Lemmatize each of the above
+from nltk import WordNetLemmatizer
+
+def lemmatize_sentence(sentence, join_string = True):
+    """
+    """
+    lemmatizer = WordNetLemmatizer()
+    if join_string is True:
+        return ' '.join([lemmatizer.lemmatize(word) for word in sentence])
+    else:
+        return [lemmatizer.lemmatize(word) for word in sentence]
+
 # 3. Split the data to train and test sets
 # 4. Create the pipeline
 # 5. Create the parameter Grid
