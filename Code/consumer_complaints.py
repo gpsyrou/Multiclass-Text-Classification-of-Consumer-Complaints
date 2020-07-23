@@ -92,7 +92,7 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 
 
 
-# 1. Split each of the rows (corresponding to a complaint) into tokens (tokenizing)
+# 1. Split each of the rows (corresponding to a complaint) into tokens
 # and remove stopwords
 
 # Tokenize
@@ -100,6 +100,17 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 main_df['Complaint_Tokenized'] = main_df.apply(lambda x: ccf.tokenize_sentence
        (x['Complaint'], rm_stopwords=True, rm_punctuation=True), axis=1)
 
+'''
+import dask.dataframe as dd
+from dask.multiprocessing import get
+
+df_partitioned = dd.from_pandas(main_df, npartitions=30)
+
+__spec__ = "ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>)"
+res = df_partitioned.map_partitions(lambda df: df.apply((lambda x:
+    ccf.tokenize_sentence(x['Complaint'], rm_stopwords=True, rm_punctuation=True)),
+    axis=1)).compute(get=get)
+'''
 
 # 2. Lemmatize each of the above
 
@@ -108,7 +119,6 @@ main_df['Complaint_Tokenized'] = main_df.apply(lambda x: ccf.tokenize_sentence
 # 5. Create the parameter Grid
 # 6. Fit the model
 # 7. Review performance
-
 
 
 
@@ -141,9 +151,11 @@ main_df['Complaint_Tokenized'] = main_df.apply(lambda x: ccf.tokenize_sentence
 # the other hand, common words like 'and' and 'the' are usually common in all
 # documents and therefore they do not provide much information.
 
+ '''
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 tfidf = TfidfVectorizer(analyzer='word', encoding='utf-8', min_df=10,
                         norm='l2', stop_words='english')
 
 feat = tfidf.fit_transform(main_df.Complaint) # feat.data gives me the array
+'''
