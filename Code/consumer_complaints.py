@@ -3,7 +3,6 @@ Consumer Complaints
 Author: Georgios Spyrou
 Date Last Updated: 15/07/2020
 """
-
 import os
 import pandas as pd
 
@@ -159,3 +158,6 @@ tfidf = TfidfVectorizer(analyzer='word', encoding='utf-8', min_df=10,
 
 feat = tfidf.fit_transform(main_df.Complaint) # feat.data gives me the array
 '''
+
+
+# %%

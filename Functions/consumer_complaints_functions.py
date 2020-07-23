@@ -27,7 +27,7 @@ def plotNumberOfObservationsPerCategory(input_df: pd.core.frame.DataFrame,
     sns.countplot(y=input_df[col],
                   order = input_df[col].value_counts().index)
     plt.title('Number of Observations per Product Category', fontweight="bold")
-
+    plt.show()
 
 
 def plotTopComplaints(input_df: pd.core.frame.DataFrame,
@@ -59,6 +59,7 @@ def plotTopComplaints(input_df: pd.core.frame.DataFrame,
         plt.ylabel('Number of complaints')
         plt.title(f'{agg_col} with the most number of complaints',
                   fontweight="bold")
+        plt.show()
     except KeyError:
         print('agg_col does not correspond to a column that exists')
 
