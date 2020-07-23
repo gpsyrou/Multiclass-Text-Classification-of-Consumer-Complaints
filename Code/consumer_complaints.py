@@ -106,7 +106,13 @@ from nltk import WordNetLemmatizer
 
 def lemmatize_sentence(sentence, join_string = True):
     """
+    Lemmatize a given string . If join_string = True then the function returns
+    the lemmatized words as a sentence. Else it returns the words as a list.
     """
+    # Handle the case where the input is the string without being tokenized
+    if type(sentence) != list:
+        sentence = sentence.split()
+
     lemmatizer = WordNetLemmatizer()
     if join_string is True:
         return ' '.join([lemmatizer.lemmatize(word) for word in sentence])
