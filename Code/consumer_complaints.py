@@ -97,26 +97,44 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 
 # 1. Split each of the rows (corresponding to a complaint) into tokens (tokenizing)
 # and remove stopwords
+
+# Tokenize
 from nltk import word_tokenize
 
 main_df['Complaint_Clean'] = main_df['Complaint'].apply(
         lambda x: word_tokenize(x))
 
+# Remove Stopwords
+
+
 
 # 2. Lemmatize each of the above
 from nltk import WordNetLemmatizer
 
-def lemmatize_sentence(sentence, join_string = True):
+def lemmatize_sentence(sentence, return_form = 'string'):
     """
-    Lemmatize a given string . If join_string = True then the function returns
-    the lemmatized words as a sentence. Else it returns the words as a list.
+    Lemmatize a given string . 
+    
+    Input:
+    ------
+        sentence: 
+            Sentence that we want to lemmatize each word. The input can be
+            of the form of tokens (list) or the complete sentence (string).
+        return_form: 
+            Format of the return function. Can be either a string
+            with the concatenated lemmatized words or a list of the 
+            lemmatized words.
+    Returns:
+    -------
+        If join_string = True then the function returns the
+        lemmatized words as a sentence. Else it returns the words as a list.
     """
     # Handle the case where the input is the string without being tokenized
     if type(sentence) != list:
         sentence = re.findall(r"[\w']+|[.,!?;]", sentence)
 
     lemmatizer = WordNetLemmatizer()
-    if join_string is True:
+    if return_form == 'string':
         return ' '.join([lemmatizer.lemmatize(word) for word in sentence])
     else:
         return [lemmatizer.lemmatize(word) for word in sentence]
