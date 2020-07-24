@@ -130,14 +130,19 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from sklearn.naive_bayes import MultinomialNB
 
-pipe_mnnb = Pipeline(steps = [('tf', TfidfVectorizer()),
-                              ('mnnb', MultinomialNB())])
+pipe_mnnb = Pipeline(steps = [('TfIdf', TfidfVectorizer()),
+                              ('MultinomialNB', MultinomialNB())])
 
 
 # 5. Create the parameter Grid
-    
-    
-    
+param_grid = {
+ 'TfIdf__max_features' : [1000, 2000, 3000],
+ 'TfIdf__mid_df': [5, 10, 20],
+ 'TfIdf__ngram_range' : [(1,1),(1,2)],
+ 'TfIdf__use_idf' : [True, False],
+ 'MultinomialNB__alpha' : [0.1, 0.5, 1]
+}   
+
 # 6. Fit the model
 # 7. Review performance
 
