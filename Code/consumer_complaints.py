@@ -117,6 +117,14 @@ main_df['Complaint_Clean'] = main_df.apply(lambda x:
                            return_form='string'), axis=1)
 
 # 3. Split the data to train and test sets
+from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
+
+X = main_df['Complaint_Clean']
+y = main_df['Category']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
+# What is the distribution of the categories (target) in the training set ?
+    
 # 4. Create the pipeline
 # 5. Create the parameter Grid
 # 6. Fit the model
