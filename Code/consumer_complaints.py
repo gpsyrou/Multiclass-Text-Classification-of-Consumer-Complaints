@@ -112,6 +112,9 @@ res = df_partitioned.map_partitions(lambda df: df.apply((lambda x:
 '''
 
 # 2. Lemmatize each of the above
+main_df['Complaint_Clean'] = main_df.apply(lambda x:
+    ccf.lemmatize_sentence(x['Complaint_Tokenized'],
+                           return_form='string'), axis=1)
 
 # 3. Split the data to train and test sets
 # 4. Create the pipeline
@@ -159,5 +162,3 @@ tfidf = TfidfVectorizer(analyzer='word', encoding='utf-8', min_df=10,
 feat = tfidf.fit_transform(main_df.Complaint) # feat.data gives me the array
 '''
 
-
-# %%
