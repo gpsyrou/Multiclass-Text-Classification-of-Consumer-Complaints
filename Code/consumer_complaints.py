@@ -137,14 +137,17 @@ pipeline_mnb = Pipeline(steps = [('TfIdf', TfidfVectorizer()),
 # 5. Create the parameter Grid
 param_grid = {
  'TfIdf__max_features' : [1000, 2000, 3000],
- 'TfIdf__mid_df': [5, 10, 20],
+ 'TfIdf__min_df': [5, 10, 20],
  'TfIdf__ngram_range' : [(1,1),(1,2)],
  'TfIdf__use_idf' : [True, False],
  'MultinomialNB__alpha' : [0.1, 0.5, 1]
 }   
 
 # 6. Fit the model
-grid_search_mnb = GridSearchCV(pipeline_mnb, param_grid, cv=5, n_jobs=-1)
+grid_search_mnb = GridSearchCV(pipeline_mnb, param_grid, cv=5,
+                               verbose=1, n_jobs=-1)
+
+grid_search_mnb.fit(X_train, y_train)
 
 # 7. Review performance
 
