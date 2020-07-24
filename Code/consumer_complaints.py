@@ -126,7 +126,18 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
 # What is the distribution of the categories (target) in the training set ?
     
 # 4. Create the pipeline
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.pipeline import Pipeline
+from sklearn.naive_bayes import MultinomialNB
+
+pipe_mnnb = Pipeline(steps = [('tf', TfidfVectorizer()),
+                              ('mnnb', MultinomialNB())])
+
+
 # 5. Create the parameter Grid
+    
+    
+    
 # 6. Fit the model
 # 7. Review performance
 
