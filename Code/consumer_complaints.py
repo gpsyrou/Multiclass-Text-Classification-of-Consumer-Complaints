@@ -130,7 +130,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from sklearn.naive_bayes import MultinomialNB
 
-pipe_mnnb = Pipeline(steps = [('TfIdf', TfidfVectorizer()),
+pipeline_mnb = Pipeline(steps = [('TfIdf', TfidfVectorizer()),
                               ('MultinomialNB', MultinomialNB())])
 
 
@@ -144,6 +144,8 @@ param_grid = {
 }   
 
 # 6. Fit the model
+grid_search_mnb = GridSearchCV(pipeline_mnb, param_grid, cv=5, n_jobs=-1)
+
 # 7. Review performance
 
 
