@@ -4,6 +4,7 @@ Author: Georgios Spyrou
 Date Last Updated: 15/07/2020
 """
 import os
+import numpy as np
 import pandas as pd
 
 import matplotlib.pyplot as plt
@@ -149,11 +150,11 @@ param_grid = {
 }  
 
 param_grid = {
- 'TfIdf__max_features' : [1000],
- 'TfIdf__min_df': [10],
+ 'TfIdf__max_features' : [500, 1000],
+ 'TfIdf__min_df': [10, 20],
  'TfIdf__ngram_range' : [(1,1)],
  'TfIdf__use_idf' : [True],
- 'MultinomialNB__alpha' : [0.5]
+ 'MultinomialNB__alpha' : [0.1, 0.5]
 } 
 
  
@@ -178,10 +179,19 @@ main_df['Predicted_Category'] = predicted
 
 # 7. Review performance
 from sklearn.metrics import confusion_matrix
-confusion_matrix(y_test, predicted)
+predicted = grid_search_mnb.predict(X_test)
+conf_matrix = confusion_matrix(y_test, predicted)
+conf_matrix
 
+plt.figure(figsize=(14,14))
+sns.heatmap(conf_matrix, annot=True)
 
+plt.figure(figsize=(14,14))
 
+sns.heatmap(conf_matrix/np.sum(conf_matrix), annot=True, 
+            fmt='.2%', cmap='Blues')
+plt.ylabel('True')
+plt.xlabel('Predicted')
 
 # We can observe that our dataset it's highly imbalanced regarding the
 # distribution of the product categories. Most of the product are falling under
