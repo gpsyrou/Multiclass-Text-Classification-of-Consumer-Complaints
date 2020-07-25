@@ -122,7 +122,12 @@ from sklearn.model_selection import train_test_split, cross_val_score, GridSearc
 X = main_df['Complaint_Clean']
 y = main_df['Category']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
+# Use the stratify parameter in order to split the target variabe (categories)
+# evenly among train and test sets.
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42,
+                                                    stratify=y)
+
+
 # What is the distribution of the categories (target) in the training set ?
     
 # 4. Create the pipeline
@@ -141,17 +146,39 @@ param_grid = {
  'TfIdf__ngram_range' : [(1,1),(1,2)],
  'TfIdf__use_idf' : [True, False],
  'MultinomialNB__alpha' : [0.1, 0.5, 1]
-}   
+}  
 
-# 6. Fit the model
+param_grid = {
+ 'TfIdf__max_features' : [1000],
+ 'TfIdf__min_df': [10],
+ 'TfIdf__ngram_range' : [(1,1)],
+ 'TfIdf__use_idf' : [True],
+ 'MultinomialNB__alpha' : [0.5]
+} 
+
+ 
+
+# 6. Fit the model and evalute the scores
 grid_search_mnb = GridSearchCV(pipeline_mnb, param_grid, cv=5,
                                verbose=1, n_jobs=-1)
 
 grid_search_mnb.fit(X_train, y_train)
 
+# Check the score on the training and test sets
+grid_search_mnb.score(X_train, y_train)
+
+grid_search_mnb.score(X_test, y_test)
+
+# Observe which were the best parameters for the model
+grid_search_mnb.best_params_
+
+predicted = grid_search_mnb.predict(X)
+main_df['Predicted_Category'] = predicted
+
+
 # 7. Review performance
-
-
+from sklearn.metrics import confusion_matrix
+confusion_matrix(y_test, predicted)
 
 
 
@@ -177,7 +204,7 @@ grid_search_mnb.fit(X_train, y_train)
 # the words neither any grammatical rules.
 
 # TF-IDF is being used to get an understanding of how relevant a word is on a 
-# document. Word that appear many times in one document are getting higher
+# document. Words that appear many times in one document are getting higher
 # significance for that document if they do not appear in other documents. On
 # the other hand, common words like 'and' and 'the' are usually common in all
 # documents and therefore they do not provide much information.
