@@ -149,15 +149,6 @@ param_grid = {
  'MultinomialNB__alpha' : [0.1, 0.5, 1]
 }  
 
-param_grid = {
- 'TfIdf__max_features' : [500, 1000],
- 'TfIdf__min_df': [10, 20],
- 'TfIdf__ngram_range' : [(1,1)],
- 'TfIdf__use_idf' : [True],
- 'MultinomialNB__alpha' : [0.1, 0.5]
-} 
-
- 
 
 # 6. Fit the model and evalute the scores
 grid_search_mnb = GridSearchCV(pipeline_mnb, param_grid, cv=5,
