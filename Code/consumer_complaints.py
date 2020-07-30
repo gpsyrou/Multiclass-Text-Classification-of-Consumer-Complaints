@@ -98,7 +98,8 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 # Tokenize
 
 main_df['Complaint_Tokenized'] = main_df.apply(lambda x: ccf.tokenize_sentence
-       (x['Complaint'], rm_stopwords=True, rm_punctuation=True), axis=1)
+       (x['Complaint'], rm_stopwords=True, rm_punctuation=True,
+        rm_numbers=True), axis=1)
 
 '''
 import dask.dataframe as dd
