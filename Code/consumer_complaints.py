@@ -14,7 +14,7 @@ project_dir = 'C:\\Users\\george\\Desktop\\GitHub\\Projects\\Consumer_Complaints
 os.chdir(project_dir)
 
 compl_full = pd.read_csv(
-        os.path.join(project_dir, 'Data\cons_complaints_dataset.csv'))
+        os.path.join(project_dir, 'Data', 'complaints.csv'))
 
 
 compl_full.dtypes

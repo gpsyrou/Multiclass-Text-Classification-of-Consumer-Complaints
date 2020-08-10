@@ -12,6 +12,8 @@ Data source:
 This is a public dataset and can be found in the following location:
 https://catalog.data.gov/dataset/consumer-complaint-database
 
+The dataset is keep getting updated, and the latest version can be found here: https://files.consumerfinance.gov/ccdb/complaints.csv.zip
+
 Useful links:
 1. https://www.kaggle.com/janiobachmann/evaluating-customer-service-sentiment-analysis
 2. https://towardsdatascience.com/multi-class-text-classification-with-scikit-learn-12f1e60e0a9f
