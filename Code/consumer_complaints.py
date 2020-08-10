@@ -87,9 +87,6 @@ complaints_processed.shape
 complaints_processed.isnull().sum(axis=0)
 
 ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product')
-print(f'There are {complaints_processed.shape[0]} instances of complaints distributed among'
-                   f' {len(complaints_processed.Product.unique())} different categories')
-
 
 # We are going to transform the Product from text into numerical values
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
@@ -106,9 +103,10 @@ ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Category')
 
 # Tokenize
 
-complaints_processed['Complaint_Tokenized'] = complaints_processed.apply(lambda x: ccf.tokenize_sentence
-       (x['Complaint'], rm_stopwords=True, rm_punctuation=True,
-        rm_numbers=True), axis=1)
+complaints_processed['Complaint_Tokenized'] = complaints_processed.apply(lambda
+                    x: ccf.tokenize_sentence(x['Complaint'], rm_stopwords=True,
+                                             rm_punctuation=True,
+                                             rm_numbers=True), axis=1)
 
 '''
 import dask.dataframe as dd
