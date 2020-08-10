@@ -68,35 +68,28 @@ ccf.plotNumberOfObservationsPerCategory(complaints_df, col='Product')
 ccf.plotTopComplaints(complaints_df, agg_col='State', top_n=10, bottom=False)
 
 # Find companies that received the most complaints from their consumers
-ccf.plotTopComplaints(complaints_df, agg_col='Company', top_n=10, bottom=False)
-
-
+ccf.plotTopComplaints(complaints_df, agg_col='Company', top_n=10, bottom=False,
+                      figsize=(14,12))
 
 # Filter the dataset to retain only the rows for which the
 # 'Consumer complaint narrative' column is populated (i.e. we have input
 # from the consumer regarding the complaint that they are submitting)
-compl_w_text = complaints_df[complaints_df['Complaint'].notnull()]
-
-ccf.plotNumberOfObservationsPerCategory(compl_w_text, col='Product')
-# Its interesting to see that the category with the most complaints is now
-# the 'Credit reporting, credit repair services, or other personal consumer
-# reports' instead of 'Mortgage' that was first when we were using the whole
-# dataset.
-
-# Part 2. Preprocessing
-
-# Preprocessing - Target Variable
+complaints_df = complaints_df[complaints_df['Complaint'].notnull()]
+complaints_df.shape
 
 # In order to build our classification model, we will need only the
 # 'Consumer complaint narrative' column as the predictor  variable
 #  and 'Product' as the target variable
 relevant_cols = ['Complaint', 'Product']
-main_df = compl_w_text[relevant_cols]
+main_df = complaints_df[relevant_cols]
 
 main_df.shape
+main_df.isnull().sum(axis=0)
 
+ccf.plotNumberOfObservationsPerCategory(main_df, col='Product')
 print(f'There are {main_df.shape[0]} instances of complaints distributed among'
                    f' {len(main_df.Product.unique())} different categories')
+
 
 # We are going to transform the Product from text into numerical values
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
