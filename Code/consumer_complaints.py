@@ -1,37 +1,53 @@
 """
-Consumer Complaints
+Multitext Classification of Consumer Complaints
 Author: Georgios Spyrou
-Date Last Updated: 15/07/2020
+Date Last Updated: 10/08/2020
+
+File: Contains the main analysis of the project like the EDA, data cleaning and
+      preprocessing, model creation, model evaluation
+
 """
+
+# Import dependencies
 import os
 import numpy as np
 import pandas as pd
 
+# Visualization
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-project_dir = 'C:\\Users\\george\\Desktop\\GitHub\\Projects\\Consumer_Complaints'
+# Part 1 - Set up project directory and read dataset
+project_dir = r'C:\Users\george\Desktop\GitHub\Projects\Consumer_Complaints'
 os.chdir(project_dir)
 
-compl_full = pd.read_csv(
-        os.path.join(project_dir, 'Data', 'complaints.csv'))
+# Read the whole dataset into a dataframe
+complaints_df = pd.read_csv(os.path.join(project_dir,
+                                           'Data', 'complaints.csv'))
 
-
-compl_full.dtypes
+complaints_df.dtypes
 # The only column that is not text is the ID of the complaint
 
 # Have a look at what columns the dataset contains
-compl_full.columns
+complaints_df.columns
+
+# Part 2 - Exploratory Data Analysis & Data Cleaning
+
+# From this dataset the only two columns that are in scope are the compaints
+# - which we can find in the 'Consumer complaint narrative' column -  and the
+# 'Product' column which is the category of the complaint (and which is going
+# to be our target variable). Thus, based on the text that we see in the former
+# we will attempt to classify the text into one of the categories in 'Product'
 
 # Renaming the predictor column for ease of use
-compl_full.rename(columns={'Consumer complaint narrative':'Complaint'},
+complaints_df.rename(columns={'Consumer complaint narrative':'Complaint'},
                   inplace=True)
 
 # Identify how many missing values we have per column
-compl_full.isnull().sum(axis=0)
+complaints_df.isnull().sum(axis=0)
 
 # Get the year that the complaint took place as a separate column
-compl_full['Year'] = compl_full['Date received'].apply(lambda x: int(x[-4:]))
+complaints_df['Year'] = complaints_df['Date received'].apply(lambda x: int(x[-4:]))
 
 # Part 1. Exploratory Data Analysis (EDA)
 
@@ -44,22 +60,20 @@ compl_full['Year'] = compl_full['Date received'].apply(lambda x: int(x[-4:]))
 # is necessary.
 from Functions import consumer_complaints_functions as ccf
 
-ccf.plotNumberOfObservationsPerCategory(compl_full, col='Product')
+ccf.plotNumberOfObservationsPerCategory(complaints_df, col='Product')
 
 # Find states that most complaints have been submitted to
-ccf.plotTopComplaints(compl_full,
-                      agg_col='State', top_n=10, bottom=False)
+ccf.plotTopComplaints(complaints_df, agg_col='State', top_n=10, bottom=False)
 
 # Find companies that received the most complaints from their consumers
-ccf.plotTopComplaints(compl_full,
-                      agg_col='Company', top_n=10, bottom=False)
+ccf.plotTopComplaints(complaints_df, agg_col='Company', top_n=10, bottom=False)
 
 
 
 # Filter the dataset to retain only the rows for which the
 # 'Consumer complaint narrative' column is populated (i.e. we have input
 # from the consumer regarding the complaint that they are submitting)
-compl_w_text = compl_full[compl_full['Complaint'].notnull()]
+compl_w_text = complaints_df[complaints_df['Complaint'].notnull()]
 
 ccf.plotNumberOfObservationsPerCategory(compl_w_text, col='Product')
 # Its interesting to see that the category with the most complaints is now
