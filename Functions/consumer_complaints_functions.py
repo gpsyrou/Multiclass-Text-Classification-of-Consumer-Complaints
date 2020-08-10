@@ -22,7 +22,10 @@ stop_words = set(stopwords.words('english'))
 
 def plotNumberOfObservationsPerCategory(input_df: pd.core.frame.DataFrame,
                                         col: str):
-
+    """
+    Returns a countplot with the number of observations
+    based on the column defined by 'col'
+    """
     plt.figure(figsize=(8,10))
     sns.countplot(y=input_df[col],
                   order = input_df[col].value_counts().index)
