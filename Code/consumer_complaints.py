@@ -40,20 +40,19 @@ complaints_df.columns
 # we will attempt to classify the text into one of the categories in 'Product'
 
 # Renaming the predictor column for ease of use
-complaints_df.rename(columns={'Consumer complaint narrative':'Complaint'},
+complaints_df.rename(columns={'Consumer complaint narrative': 'Complaint'},
                   inplace=True)
 
-# Identify how many missing values we have per column
+# Identify how many missing values we have per column 
 complaints_df.isnull().sum(axis=0)
 
 # Get the year that the complaint took place as a separate column
-complaints_df['Year'] = complaints_df['Date received'].apply(lambda x: int(x[-4:]))
+import re
 
-# Part 1. Exploratory Data Analysis (EDA)
-
-# Main purpose of this project is to use the 'Consumer complaint narrative'
-# column, in order to predict to which category (defined by 'Product' column)
-# the complaint belongs to.
+complaints_df['Year'] = complaints_df['Date received'].apply(lambda x:
+    int(re.findall('[0-9]{4}', x)[0]))
+    
+complaints_df.Year.value_counts()
 
 # Identify the amount of times that each Category (Product) is present in our
 # dataset. We have no missing values for this column, so no imputation method
