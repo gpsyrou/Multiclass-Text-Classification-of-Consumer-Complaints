@@ -81,24 +81,24 @@ complaints_df.shape
 # 'Consumer complaint narrative' column as the predictor  variable
 #  and 'Product' as the target variable
 relevant_cols = ['Complaint', 'Product']
-main_df = complaints_df[relevant_cols]
+complaints_processed = complaints_df[relevant_cols]
 
-main_df.shape
-main_df.isnull().sum(axis=0)
+complaints_processed.shape
+complaints_processed.isnull().sum(axis=0)
 
-ccf.plotNumberOfObservationsPerCategory(main_df, col='Product')
-print(f'There are {main_df.shape[0]} instances of complaints distributed among'
-                   f' {len(main_df.Product.unique())} different categories')
+ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product')
+print(f'There are {complaints_processed.shape[0]} instances of complaints distributed among'
+                   f' {len(complaints_processed.Product.unique())} different categories')
 
 
 # We are going to transform the Product from text into numerical values
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
-lab_enc = LabelEncoder()
-main_df['Category'] = lab_enc.fit_transform(main_df['Product'])
+label_encoder = LabelEncoder()
+complaints_processed['Category'] = label_encoder.fit_transform(
+        complaints_processed['Product'])
 
-ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
-
+ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Category')
 
 
 # 1. Split each of the rows (corresponding to a complaint) into tokens
@@ -106,7 +106,7 @@ ccf.plotNumberOfObservationsPerCategory(main_df, col='Category')
 
 # Tokenize
 
-main_df['Complaint_Tokenized'] = main_df.apply(lambda x: ccf.tokenize_sentence
+complaints_processed['Complaint_Tokenized'] = complaints_processed.apply(lambda x: ccf.tokenize_sentence
        (x['Complaint'], rm_stopwords=True, rm_punctuation=True,
         rm_numbers=True), axis=1)
 
@@ -123,15 +123,15 @@ res = df_partitioned.map_partitions(lambda df: df.apply((lambda x:
 '''
 
 # 2. Lemmatize each of the above
-main_df['Complaint_Clean'] = main_df.apply(lambda x:
+complaints_processed['Complaint_Clean'] = complaints_processed.apply(lambda x:
     ccf.lemmatize_sentence(x['Complaint_Tokenized'],
                            return_form='string'), axis=1)
 
 # 3. Split the data to train and test sets
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 
-X = main_df['Complaint_Clean']
-y = main_df['Category']
+X = complaints_processed['Complaint_Clean']
+y = complaints_processed['Category']
 
 # Use the stratify parameter in order to split the target variabe (categories)
 # evenly among train and test sets.
@@ -175,7 +175,7 @@ grid_search_mnb.score(X_test, y_test)
 grid_search_mnb.best_params_
 
 predicted = grid_search_mnb.predict(X)
-main_df['Predicted_Category'] = predicted
+complaints_processed['Predicted_Category'] = predicted
 
 
 # 7. Review performance
