@@ -50,6 +50,10 @@ def plotTopComplaints(input_df: pd.core.frame.DataFrame,
     bottom: Plot the top-n from the top (highest) or from the bottom (lowest)
     """
     size = float(input_df.shape[0])
+    rot = 0
+    
+    if agg_col=='Company':
+        rot = 45
     
     try:
         most_cmplts = input_df[['Complaint ID',
@@ -67,6 +71,7 @@ def plotTopComplaints(input_df: pd.core.frame.DataFrame,
             ax.text(p.get_x()+p.get_width()/2., height + 4, '{:1.2f}%'.format(
                     100 * height/size), ha="center")
 
+        ax.set_xticklabels(ax.get_xticklabels(), rotation=rot)
         plt.ylabel('Number of complaints')
         plt.title(f'{agg_col} with the most number of complaints',
                   fontweight="bold")
