@@ -26,9 +26,10 @@ def plotNumberOfObservationsPerCategory(input_df: pd.core.frame.DataFrame,
     Returns a countplot with the number of observations
     based on the column defined by 'col'
     """
+    
     plt.figure(figsize=(8,10))
     sns.countplot(y=input_df[col],
-                  order = input_df[col].value_counts().index)
+                       order=input_df[col].value_counts().index)
     plt.title(f'Number of Observations per {col} Category', fontweight="bold")
     plt.show()
 
@@ -48,6 +49,8 @@ def plotTopComplaints(input_df: pd.core.frame.DataFrame,
     top_n: Amount of observations to be included in the plot
     bottom: Plot the top-n from the top (highest) or from the bottom (lowest)
     """
+    size = float(input_df.shape[0])
+    
     try:
         most_cmplts = input_df[['Complaint ID',
                             agg_col]].groupby([agg_col]).agg(['count'])
@@ -56,8 +59,13 @@ def plotTopComplaints(input_df: pd.core.frame.DataFrame,
                 by=[('Complaint ID','count')], ascending=bottom)
 
         plt.figure(figsize=figsize)
-        sns.barplot(x=most_cmplts.index[0:top_n], y=('Complaint ID','count'),
-                    data = most_cmplts[0:top_n])
+        ax = sns.barplot(x=most_cmplts.index[0:top_n], y=('Complaint ID',
+                         'count'), data = most_cmplts[0:top_n])
+            
+        for p in ax.patches:
+            height = p.get_height()
+            ax.text(p.get_x()+p.get_width()/2., height + 4, '{:1.2f}%'.format(
+                    100 * height/size), ha="center")
 
         plt.ylabel('Number of complaints')
         plt.title(f'{agg_col} with the most number of complaints',

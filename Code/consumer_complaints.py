@@ -13,6 +13,8 @@ import os
 import numpy as np
 import pandas as pd
 
+import re
+
 # Visualization
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -47,10 +49,8 @@ complaints_df.rename(columns={'Consumer complaint narrative': 'Complaint'},
 complaints_df.isnull().sum(axis=0)
 
 # Get the year that the complaint took place as a separate column
-import re
-
-complaints_df['Year'] = complaints_df['Date received'].apply(lambda x:
-    int(re.findall('[0-9]{4}', x)[0]))
+complaints_df['Year'] = complaints_df['Date received'].apply(lambda x: int(
+        re.findall('[0-9]{4}', x)[0]))
     
 complaints_df.Year.value_counts()
 
@@ -60,6 +60,9 @@ complaints_df.Year.value_counts()
 from Functions import consumer_complaints_functions as ccf
 
 ccf.plotNumberOfObservationsPerCategory(complaints_df, col='Product')
+# We can observe that the initial dataset has some imbalance in terms of the
+# categories of the complaints. Appears that the most regular complaints are
+# related to credit reporting, mortage, debt collection and credit reporting.
 
 # Find states that most complaints have been submitted to
 ccf.plotTopComplaints(complaints_df, agg_col='State', top_n=10, bottom=False)
