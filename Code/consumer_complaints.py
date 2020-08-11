@@ -87,6 +87,9 @@ complaints_processed.shape
 complaints_processed.isnull().sum(axis=0)
 
 ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product')
+# We can see that some of the categories appear to overlap with each other
+# For example 'credit reporting' and 'credit reporting,credit repair....'
+# For such cases we will combine them into one category
 
 # We are going to transform the Product from text into numerical values
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
