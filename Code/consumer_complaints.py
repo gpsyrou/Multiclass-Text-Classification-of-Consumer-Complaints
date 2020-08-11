@@ -86,6 +86,8 @@ complaints_processed = complaints_df[relevant_cols]
 complaints_processed.shape
 complaints_processed.isnull().sum(axis=0)
 
+del complaints_df
+
 # We can see that some of the categories appear to overlap with each other
 # For example 'credit reporting' and 'credit reporting,credit repair....'
 # For such cases we will combine them into one category
@@ -100,7 +102,6 @@ prod_category_map = {'Credit reporting, credit repair services, or other persona
 complaints_processed['Product'].replace(prod_category_map, inplace=True)
 
 ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product')
-
 
 # We are going to transform the Product from text into numerical values
 from sklearn.preprocessing import LabelEncoder
@@ -149,7 +150,8 @@ y = complaints_processed['Product_Id']
 
 # Use the stratify parameter in order to split the target variabe (categories)
 # evenly among train and test sets.
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42,
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2,
+                                                    random_state=42,
                                                     stratify=y)
 
 
