@@ -103,14 +103,16 @@ ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product')
 
 
 # We are going to transform the Product from text into numerical values
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import LabelEncoder
 
 label_encoder = LabelEncoder()
-complaints_processed['Category'] = label_encoder.fit_transform(
+complaints_processed['Product_Id'] = label_encoder.fit_transform(
         complaints_processed['Product'])
 
-ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Category')
+ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product_Id')
 
+# Also its good to have the categories as a dictionary
+product_map = complaints_processed.set_index('Product_Id').to_dict()['Product']
 
 # 1. Split each of the rows (corresponding to a complaint) into tokens
 # and remove stopwords
@@ -143,7 +145,7 @@ complaints_processed['Complaint_Clean'] = complaints_processed.apply(lambda x:
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 
 X = complaints_processed['Complaint_Clean']
-y = complaints_processed['Category']
+y = complaints_processed['Product_Id']
 
 # Use the stratify parameter in order to split the target variabe (categories)
 # evenly among train and test sets.
