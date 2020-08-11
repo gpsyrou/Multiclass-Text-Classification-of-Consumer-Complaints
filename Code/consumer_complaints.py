@@ -86,10 +86,21 @@ complaints_processed = complaints_df[relevant_cols]
 complaints_processed.shape
 complaints_processed.isnull().sum(axis=0)
 
-ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product')
 # We can see that some of the categories appear to overlap with each other
 # For example 'credit reporting' and 'credit reporting,credit repair....'
 # For such cases we will combine them into one category
+
+prod_category_map = {'Credit reporting, credit repair services, or other personal consumer reports': 'Credit reporting',
+                     'Credit card': 'Credit card or prepaid card',
+                     'Payday loan': 'Payday loan, title loan, or personal loan',
+                     'Prepaid card': 'Credit card or prepaid card',
+                     'Money transfers': 'Money transfer, virtual currency, or money service',
+                     'Virtual currency': 'Money transfer, virtual currency, or money service'}
+
+complaints_processed['Product'].replace(prod_category_map, inplace=True)
+
+ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product')
+
 
 # We are going to transform the Product from text into numerical values
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
