@@ -123,7 +123,8 @@ product_map = complaints_processed.set_index('Product_Id').to_dict()['Product']
 complaints_processed['Complaint_Tokenized'] = complaints_processed.apply(lambda
                     x: ccf.tokenize_sentence(x['Complaint'], rm_stopwords=True,
                                              rm_punctuation=True,
-                                             rm_numbers=True), axis=1)
+                                             rm_numbers=True,
+                                             rm_classified=True), axis=1)
 
 # 2. Lemmatize each of the above
 complaints_processed['Complaint_Clean'] = complaints_processed.apply(lambda x:
