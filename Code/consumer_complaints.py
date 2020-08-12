@@ -119,7 +119,6 @@ product_map = complaints_processed.set_index('Product_Id').to_dict()['Product']
 # and remove stopwords
 
 # Tokenize
-
 complaints_processed['Complaint_Tokenized'] = complaints_processed.apply(lambda
                     x: ccf.tokenize_sentence(x['Complaint'], rm_stopwords=True,
                                              rm_punctuation=True,

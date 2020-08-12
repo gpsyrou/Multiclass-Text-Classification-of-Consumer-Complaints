@@ -86,7 +86,8 @@ def tokenize_sentence(sentence: str, rm_stopwords=True, rm_punctuation=True,
     """
     Tokenize a given string, and return the words as a list.
     The function offers functionality to exclude the words that are either
-    a stopword or punctuation.
+    1) a stopword 2) punctuation symbol 3) a number or 4) has the format 'XX'
+    or 'XXXX' indicates that a word is classified.
     """
     tokenized = [x.lower() for x in word_tokenize(sentence)]
     
