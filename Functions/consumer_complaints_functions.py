@@ -88,7 +88,9 @@ def tokenize_sentence(sentence: str, rm_stopwords=True,
     The function offers functionality to exclude the words that are either
     a stopword or punctuation.
     """
-    tokenized = [x.lower() for x in word_tokenize(sentence)]
+    tokenized = [x.lower() for x in word_tokenize(sentence) if
+                 x.lower() != 'xxxx' and x.lower() != 'xx' and
+                 x.lower() != 'xx/xx/xxxx']
     
     if rm_stopwords == True:
         tokenized = [x for x in tokenized if x not in stop_words]
