@@ -125,18 +125,6 @@ complaints_processed['Complaint_Tokenized'] = complaints_processed.apply(lambda
                                              rm_punctuation=True,
                                              rm_numbers=True), axis=1)
 
-'''
-import dask.dataframe as dd
-from dask.multiprocessing import get
-
-df_partitioned = dd.from_pandas(main_df, npartitions=30)
-
-__spec__ = "ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>)"
-res = df_partitioned.map_partitions(lambda df: df.apply((lambda x:
-    ccf.tokenize_sentence(x['Complaint'], rm_stopwords=True, rm_punctuation=True)),
-    axis=1)).compute(get=get)
-'''
-
 # 2. Lemmatize each of the above
 complaints_processed['Complaint_Clean'] = complaints_processed.apply(lambda x:
     ccf.lemmatize_sentence(x['Complaint_Tokenized'],
