@@ -137,7 +137,7 @@ complaints_processed['Complaint_Clean'] = complaints_processed.apply(lambda x:
 pickle_file = 'complaints_processed.pkl'
 complaints_processed.to_pickle(os.path.join(project_dir, 'Data', pickle_file))
  
-   
+complaints_processed = pd.read_pickle(os.path.join('Data', pickle_file))
 # 3. Split the data to train and test sets
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 
