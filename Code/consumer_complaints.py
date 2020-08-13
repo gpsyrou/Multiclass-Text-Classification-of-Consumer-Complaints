@@ -133,6 +133,11 @@ complaints_processed['Complaint_Clean'] = complaints_processed.apply(lambda x:
     ccf.lemmatize_sentence(x['Complaint_Tokenized'],
                            return_form='string'), axis=1)
 
+# Save the dataset as the processing of the dataframe takes time
+pickle_file = 'complaints_processed.pkl'
+complaints_processed.to_pickle(os.path.join(project_dir, 'Data', pickle_file))
+ 
+   
 # 3. Split the data to train and test sets
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 
