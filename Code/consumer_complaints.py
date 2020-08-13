@@ -59,7 +59,8 @@ complaints_df.Year.value_counts()
 # is necessary.
 from Functions import consumer_complaints_functions as ccf
 
-ccf.plotNumberOfObservationsPerCategory(complaints_df, col='Product')
+ccf.plotNumberOfObservationsPerCategory(complaints_df, col='Product',
+                                        by_year=False)
 # We can observe that the initial dataset has some imbalance in terms of the
 # categories of the complaints. Appears that the most regular complaints are
 # related to credit reporting, mortage, debt collection and credit reporting.
@@ -80,7 +81,7 @@ complaints_df.shape
 # In order to build our classification model, we will need only the
 # 'Consumer complaint narrative' column as the predictor  variable
 #  and 'Product' as the target variable
-relevant_cols = ['Complaint', 'Product']
+relevant_cols = ['Year', 'Complaint', 'Product']
 complaints_processed = complaints_df[relevant_cols]
 
 complaints_processed.shape
@@ -101,7 +102,8 @@ prod_category_map = {'Credit reporting, credit repair services, or other persona
 
 complaints_processed['Product'].replace(prod_category_map, inplace=True)
 
-ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product')
+ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product',
+                                        by_year=True)
 
 # We are going to transform the Product from text into numerical values
 from sklearn.preprocessing import LabelEncoder
@@ -110,7 +112,8 @@ label_encoder = LabelEncoder()
 complaints_processed['Product_Id'] = label_encoder.fit_transform(
         complaints_processed['Product'])
 
-ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product_Id')
+ccf.plotNumberOfObservationsPerCategory(complaints_processed, col='Product_Id', 
+                                        by_year=True)
 
 # Also its good to have the categories as a dictionary
 product_map = complaints_processed.set_index('Product_Id').to_dict()['Product']

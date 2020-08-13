@@ -21,14 +21,16 @@ stop_words = set(stopwords.words('english'))
 
 
 def plotNumberOfObservationsPerCategory(input_df: pd.core.frame.DataFrame,
-                                        col: str):
+                                        col: str, by_year=True):
     """
     Returns a countplot with the number of observations
     based on the column defined by 'col'
     """
-    
+    hue = None
+    if by_year == True:
+        hue = input_df['Year']
     plt.figure(figsize=(8,10))
-    sns.countplot(y=input_df[col],
+    sns.countplot(y=input_df[col], hue=hue,
                        order=input_df[col].value_counts().index)
     plt.title(f'Number of Complaints per {col} Category', fontweight="bold")
     plt.show()
