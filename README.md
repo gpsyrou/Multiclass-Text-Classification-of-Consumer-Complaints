@@ -21,3 +21,6 @@ Useful links:
 4. https://www.kaggle.com/selener/consumer-complaint-database
 5. https://www.quora.com/How-can-one-reduce-the-TFIDF-model-size-without-reducing-the-accuracy-significantly
 6. https://medium.com/@ishan16.d/text-classification-in-python-with-scikit-learn-and-nltk-891aa2d0ac4b
+7. https://towardsdatascience.com/multi-class-text-classification-with-lstm-1590bee1bd17
+8. https://towardsdatascience.com/multi-class-text-classification-with-lstm-using-tensorflow-2-0-d88627c10a35
+9. https://github.com/jiegzhan/multi-class-text-classification-cnn
