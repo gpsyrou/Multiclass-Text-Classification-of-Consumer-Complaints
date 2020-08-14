@@ -223,8 +223,12 @@ conf_matrix_df = pd.DataFrame(data=confusion_matrix(y_test, y_predicted),
                               columns=key_to_product)
 
 # Heatmap of the results
-plt.figure(figsize=(14,14))
-sns.heatmap(conf_matrix_df, annot=True)
+plt.figure(figsize=(20,18))
+sns.heatmap(conf_matrix_df, annot=True, fmt='.0f', cmap='Reds')
+plt.ylabel('True', fontweight='bold')
+plt.xlabel('Predicted', fontweight='bold')
 
-classification_report = classification_report(y_test, predicted)
-
+# Classification report
+classification_rep = classification_report(y_test, y_predicted)
+classification_report_dict = classification_report(y_test, y_predicted,
+                                              output_dict=True)
