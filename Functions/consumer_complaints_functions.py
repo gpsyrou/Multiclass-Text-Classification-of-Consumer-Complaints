@@ -137,3 +137,20 @@ def lemmatize_sentence(sentence, return_form = 'string'):
         return ' '.join([lemmatizer.lemmatize(word) for word in sentence])
     else:
         return [lemmatizer.lemmatize(word) for word in sentence]
+
+
+def plotConfusionMatrixHeatmap(input_df: pd.core.frame.DataFrame,
+                               model_name: str, figsize=(20, 18)):
+    """
+    Return the results of a multiclass classification algorithms as a heatmap
+    based on a confusion matrix.        
+    """
+    # Heatmap of the results
+    plt.figure(figsize=figsize)
+    sns.heatmap(input_df, annot=True, fmt='d', cmap='Reds')
+    plt.ylabel('True', fontweight='bold')
+    plt.xlabel('Predicted', fontweight='bold')
+    plt.title(f'Confusion Matrix - {model_name}', size=14, fontweight='bold')
+    plt.legend(True, loc='best')
+    plt.show()
+

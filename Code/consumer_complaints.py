@@ -224,14 +224,7 @@ conf_matrix_df = pd.DataFrame(data=confusion_matrix(y_test, y_predicted),
                               index=key_to_product,
                               columns=key_to_product)
 
-# Heatmap of the results
-plt.figure(figsize=(20,18))
-sns.heatmap(conf_matrix_df, annot=True, fmt='d', cmap='Reds')
-plt.ylabel('True', fontweight='bold')
-plt.xlabel('Predicted', fontweight='bold')
-plt.title('Confusion Matrix - Naive Bayes', size=14, fontweight='bold')
-plt.legend(True, loc='best')
-plt.show()
+ccf.plotConfusionMatrixHeatmap(conf_matrix_df, model_name='Naive Bayes')
 
 # Classification report
 classification_rep = classification_report(y_test, y_predicted)
