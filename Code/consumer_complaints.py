@@ -205,10 +205,13 @@ complaints_processed['Predicted_Category'] = predicted
 
 
 # 7. Review performance
-from sklearn.metrics import confusion_matrix
-predicted = grid_search_mnb.predict(X_test)
+from sklearn.metrics import confusion_matrix, classification_report
+y_predicted = grid_search_mnb.predict(X_test)
 conf_matrix = confusion_matrix(y_test, predicted)
 conf_matrix
 
 plt.figure(figsize=(14,14))
 sns.heatmap(conf_matrix, annot=True)
+
+classification_report = classification_report(y_test, predicted)
+
