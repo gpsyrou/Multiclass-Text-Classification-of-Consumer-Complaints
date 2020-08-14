@@ -174,7 +174,7 @@ from sklearn.naive_bayes import MultinomialNB
 # documents and therefore they do not provide much information.
 
 
-# Naive Bayes model
+# Multinomial Naive Bayes model
 pipeline_mnb = Pipeline(steps = [('TfIdf', TfidfVectorizer()),
                               ('MultinomialNB', MultinomialNB())])
 
@@ -227,6 +227,38 @@ conf_matrix_df = pd.DataFrame(data=confusion_matrix(y_test, y_predicted),
 ccf.plotConfusionMatrixHeatmap(conf_matrix_df, model_name='Naive Bayes')
 
 # Classification report
-classification_rep = classification_report(y_test, y_predicted)
+classification_rep = classification_report(y_test, y_predicted,
+                                           target_names=key_to_product)
+
 classification_report_dict = classification_report(y_test, y_predicted,
                                               output_dict=True)
+
+
+# Linear Support Vector Machine model
+from sklearn.linear_model import SGDClassifier
+
+pipeline_lsvm = Pipeline(steps= [('TfIdf', TfidfVectorizer()),
+                              ('SGDC', SGDClassifier(loss='hinge',
+                                                     penalty='l2',alpha=1e-3,
+                                                     random_state=42,
+                                                     max_iter=5, tol=None))])
+pipeline_lsvm.fit(X_train, y_train)
+
+y_predicted = pipeline_lsvm.predict(X_test)
+
+key_to_product = [x[1] for x in sorted(product_map.items())]
+
+conf_matrix_df = pd.DataFrame(data=confusion_matrix(y_test, y_predicted),
+                              index=key_to_product,
+                              columns=key_to_product)
+
+ccf.plotConfusionMatrixHeatmap(conf_matrix_df, model_name='Linear SVM')
+
+# Classification report
+classification_rep = classification_report(y_test, y_predicted,
+                                           target_names=key_to_product)
+
+classification_report_dict = classification_report(y_test, y_predicted,
+                                              output_dict=True)
+
+
