@@ -188,12 +188,18 @@ param_grid = {
 
 # 6. Fit the model and evalute the scores
 grid_search_mnb = GridSearchCV(pipeline_mnb, param_grid, cv=5, verbose=10,
-                               n_jobs=4)
+                               n_jobs=6)
 
 grid_search_mnb.fit(X_train, y_train)
 
 # Observe which were the best parameters for the model
 grid_search_mnb.best_params_
+'''
+{'MultinomialNB__alpha': 0.01,
+ 'TfIdf__max_features': 4000,
+ 'TfIdf__ngram_range': (1, 1),
+ 'TfIdf__use_idf': True}
+'''
 grid_search_mnb.best_estimator_
 
 # Check the score on the training and test sets
@@ -206,12 +212,19 @@ complaints_processed['Predicted_Category'] = predicted
 
 # 7. Review performance
 from sklearn.metrics import confusion_matrix, classification_report
-y_predicted = grid_search_mnb.predict(X_test)
-conf_matrix = confusion_matrix(y_test, predicted)
-conf_matrix
 
+# Get the confusion matrix as dataframe
+y_predicted = grid_search_mnb.predict(X_test)
+
+key_to_product = [x[1] for x in sorted(product_map.items())]
+
+conf_matrix_df = pd.DataFrame(data=confusion_matrix(y_test, y_predicted),
+                              index=key_to_product,
+                              columns=key_to_product)
+
+# Heatmap of the results
 plt.figure(figsize=(14,14))
-sns.heatmap(conf_matrix, annot=True)
+sns.heatmap(conf_matrix_df, annot=True)
 
 classification_report = classification_report(y_test, predicted)
 
