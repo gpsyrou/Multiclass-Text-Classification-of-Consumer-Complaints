@@ -173,6 +173,8 @@ from sklearn.naive_bayes import MultinomialNB
 # the other hand, common words like 'and' and 'the' are usually common in all
 # documents and therefore they do not provide much information.
 
+
+# Naive Bayes model
 pipeline_mnb = Pipeline(steps = [('TfIdf', TfidfVectorizer()),
                               ('MultinomialNB', MultinomialNB())])
 
@@ -224,9 +226,12 @@ conf_matrix_df = pd.DataFrame(data=confusion_matrix(y_test, y_predicted),
 
 # Heatmap of the results
 plt.figure(figsize=(20,18))
-sns.heatmap(conf_matrix_df, annot=True, fmt='.0f', cmap='Reds')
+sns.heatmap(conf_matrix_df, annot=True, fmt='d', cmap='Reds')
 plt.ylabel('True', fontweight='bold')
 plt.xlabel('Predicted', fontweight='bold')
+plt.title('Confusion Matrix - Naive Bayes', size=14, fontweight='bold')
+plt.legend(True, loc='best')
+plt.show()
 
 # Classification report
 classification_rep = classification_report(y_test, y_predicted)
