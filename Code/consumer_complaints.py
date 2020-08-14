@@ -157,6 +157,21 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from sklearn.naive_bayes import MultinomialNB
 
+# Most of the algorithms do not work well when they have to deal with text data
+# in their raw form. To solve this issue we will work with some techniques such
+# like the bag of words and TF-IDF.
+
+# Bag of words refers to the process of creating a vector of word counts of
+# a document (which in our case refers to the complaints made by the consumers)
+# In simple words, its the number that each word appears in a document. Please
+# have in mind that Bag of Words does not take into consideration the order of
+# the words neither any grammatical rules.
+
+# TF-IDF is being used to get an understanding of how relevant a word is on a 
+# document. Words that appear many times in one document are getting higher
+# significance for that document if they do not appear in other documents. On
+# the other hand, common words like 'and' and 'the' are usually common in all
+# documents and therefore they do not provide much information.
 
 pipeline_mnb = Pipeline(steps = [('TfIdf', TfidfVectorizer()),
                               ('MultinomialNB', MultinomialNB())])
@@ -197,46 +212,3 @@ conf_matrix
 
 plt.figure(figsize=(14,14))
 sns.heatmap(conf_matrix, annot=True)
-
-plt.figure(figsize=(14,14))
-
-sns.heatmap(conf_matrix/np.sum(conf_matrix), annot=True, 
-            fmt='.2%', cmap='Blues')
-plt.ylabel('True')
-plt.xlabel('Predicted')
-
-# We can observe that our dataset it's highly imbalanced regarding the
-# distribution of the product categories. Most of the product are falling under
-# the credit reporting, debit collection and mortgage categories. Imbalanced 
-# datasets can usually be a major issue as they can lead to misleading results.
-# This is because the algorithm will seem to be predicting 'correctly' and 
-# achieving high accuracy scores, while this will be due to the fact that its
-# only predicting correctly the majority class.
-
-# Preprocessing - Predictor variable
-
-# Most of the algorithms do not work well when they have to deal with text data
-# in their raw form. To solve this issue we will work with some techniques such
-# like the bag of words and TF-IDF.
-
-# Bag of words refers to the process of creating a vector of word counts of
-# a document (which in our case refers to the complaints made by the consumers)
-# In simple words, its the number that each word appears in a document. Please
-# have in mind that Bag of Words does not take into consideration the order of
-# the words neither any grammatical rules.
-
-# TF-IDF is being used to get an understanding of how relevant a word is on a 
-# document. Words that appear many times in one document are getting higher
-# significance for that document if they do not appear in other documents. On
-# the other hand, common words like 'and' and 'the' are usually common in all
-# documents and therefore they do not provide much information.
-
-'''
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-tfidf = TfidfVectorizer(analyzer='word', encoding='utf-8', min_df=10,
-                        norm='l2', stop_words='english')
-
-feat = tfidf.fit_transform(main_df.Complaint) # feat.data gives me the array
-'''
-
