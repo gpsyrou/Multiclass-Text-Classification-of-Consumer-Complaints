@@ -150,7 +150,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2,
                                                     random_state=42,
                                                     stratify=y)
 
-
 # What is the distribution of the categories (target) in the training set ?
     
 # 4. Create the pipeline
@@ -158,33 +157,33 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from sklearn.naive_bayes import MultinomialNB
 
+
 pipeline_mnb = Pipeline(steps = [('TfIdf', TfidfVectorizer()),
                               ('MultinomialNB', MultinomialNB())])
 
-
 # 5. Create the parameter Grid
 param_grid = {
- 'TfIdf__max_features' : [1000, 2000, 3000],
- 'TfIdf__min_df': [5, 10, 20],
- 'TfIdf__ngram_range' : [(1,1),(1,2)],
- 'TfIdf__use_idf' : [True, False],
- 'MultinomialNB__alpha' : [0.1, 0.5, 1]
+ 'TfIdf__max_features' : [3000, 4000],
+# 'TfIdf__min_df': [10, 20, 30],
+ 'TfIdf__ngram_range' : [(1,1)],
+ 'TfIdf__use_idf' : [True],
+ 'MultinomialNB__alpha' : [0.01, 0.05, 0.1]
 }  
 
 
 # 6. Fit the model and evalute the scores
-grid_search_mnb = GridSearchCV(pipeline_mnb, param_grid, cv=5,
-                               verbose=1, n_jobs=-1)
+grid_search_mnb = GridSearchCV(pipeline_mnb, param_grid, cv=5, verbose=10,
+                               n_jobs=4)
 
 grid_search_mnb.fit(X_train, y_train)
 
-# Check the score on the training and test sets
-grid_search_mnb.score(X_train, y_train)
-
-grid_search_mnb.score(X_test, y_test)
-
 # Observe which were the best parameters for the model
 grid_search_mnb.best_params_
+grid_search_mnb.best_estimator_
+
+# Check the score on the training and test sets
+grid_search_mnb.score(X_test, y_test)
+
 
 predicted = grid_search_mnb.predict(X)
 complaints_processed['Predicted_Category'] = predicted
