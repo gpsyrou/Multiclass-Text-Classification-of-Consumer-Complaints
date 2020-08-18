@@ -237,6 +237,8 @@ classification_report_dict = classification_report(y_test, y_predicted,
 # Linear Support Vector Machine model
 from sklearn.linear_model import SGDClassifier
 
+# Create the parameter Grid - to do
+
 pipeline_lsvm = Pipeline(steps= [('TfIdf', TfidfVectorizer()),
                               ('SGDC', SGDClassifier(loss='hinge',
                                                      penalty='l2',alpha=1e-3,
