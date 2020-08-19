@@ -33,13 +33,13 @@ def plotNumberOfObservationsPerCategory(input_df: pd.core.frame.DataFrame,
     plt.figure(figsize=figsize)
     sns.countplot(y=input_df[col], hue=hue,
                        order=input_df[col].value_counts().index)
-    plt.ylabel('Complaint Category', fontweight="bold")
-    plt.title(f'Number of Complaints per {col} Category', fontweight="bold")
+    plt.ylabel('Complaint Category', fontweight='bold')
+    plt.title(f'Number of Complaints per {col} Category', fontweight='bold')
     plt.show()
 
 
-def plotTopComplaints(input_df: pd.core.frame.DataFrame,
-                      agg_col: str, top_n: int, bottom=False, figsize=(10,8)):
+def plotTopComplaints(input_df: pd.core.frame.DataFrame, agg_col: str,
+                      top_n: int, bottom=False, figsize=(10,8)):
     """
     Aggregate a dataframe based on column of interest and calcualte the number
     of observations per aggregated group.
@@ -56,9 +56,9 @@ def plotTopComplaints(input_df: pd.core.frame.DataFrame,
     size = float(input_df.shape[0])
     rot = 0
     
-    if agg_col=='Company':
+    if (agg_col=='Company') & (top_n >=10):
         rot = 45
-    
+
     try:
         most_cmplts = input_df[['Complaint ID',
                             agg_col]].groupby([agg_col]).agg(['count'])
@@ -76,9 +76,9 @@ def plotTopComplaints(input_df: pd.core.frame.DataFrame,
                     100 * height/size), ha="center")
 
         ax.set_xticklabels(ax.get_xticklabels(), rotation=rot)
-        plt.ylabel('Number of complaints')
+        plt.ylabel('Number of complaints', fontweight='bold')
         plt.title(f'{agg_col} with the most number of complaints',
-                  fontweight="bold")
+                  fontweight='bold')
         plt.show()
     except KeyError:
         print('agg_col does not correspond to a column that exists')
