@@ -33,6 +33,7 @@ def plotNumberOfObservationsPerCategory(input_df: pd.core.frame.DataFrame,
     plt.figure(figsize=figsize)
     sns.countplot(y=input_df[col], hue=hue,
                        order=input_df[col].value_counts().index)
+    plt.ylabel('Complaint Category', fontweight="bold")
     plt.title(f'Number of Complaints per {col} Category', fontweight="bold")
     plt.show()
 
