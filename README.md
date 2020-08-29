@@ -18,9 +18,7 @@ Useful links:
 1. https://www.kaggle.com/janiobachmann/evaluating-customer-service-sentiment-analysis
 2. https://towardsdatascience.com/multi-class-text-classification-with-scikit-learn-12f1e60e0a9f
 3. https://www.kaggle.com/selener/multi-class-text-classification-tfidf
-4. https://www.kaggle.com/selener/consumer-complaint-database
-5. https://www.quora.com/How-can-one-reduce-the-TFIDF-model-size-without-reducing-the-accuracy-significantly
-6. https://medium.com/@ishan16.d/text-classification-in-python-with-scikit-learn-and-nltk-891aa2d0ac4b
-7. https://towardsdatascience.com/multi-class-text-classification-with-lstm-1590bee1bd17
-8. https://towardsdatascience.com/multi-class-text-classification-with-lstm-using-tensorflow-2-0-d88627c10a35
-9. https://github.com/jiegzhan/multi-class-text-classification-cnn
+4. https://www.quora.com/How-can-one-reduce-the-TFIDF-model-size-without-reducing-the-accuracy-significantly
+5. https://medium.com/@ishan16.d/text-classification-in-python-with-scikit-learn-and-nltk-891aa2d0ac4b
+6. https://towardsdatascience.com/multi-class-text-classification-with-lstm-1590bee1bd17
+7. https://towardsdatascience.com/multi-class-text-classification-with-lstm-using-tensorflow-2-0-d88627c10a35
