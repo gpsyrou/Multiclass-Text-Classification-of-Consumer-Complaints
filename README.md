@@ -23,3 +23,4 @@ Useful links:
 6. https://towardsdatascience.com/multi-class-text-classification-with-lstm-1590bee1bd17
 7. https://towardsdatascience.com/multi-class-text-classification-with-lstm-using-tensorflow-2-0-d88627c10a35
 8. https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html
+9. https://monkeylearn.com/blog/beginners-guide-text-vectorization/
