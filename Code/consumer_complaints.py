@@ -235,32 +235,35 @@ classification_report_dict = classification_report(y_test, y_predicted,
 
 
 # Linear Support Vector Machine model
-from sklearn.linear_model import SGDClassifier
-
-# Create the parameter Grid - to do
-
 pipeline_lsvm = Pipeline(steps= [('TfIdf', TfidfVectorizer()),
-                              ('SGDC', SGDClassifier(loss='hinge',
-                                                     penalty='l2',alpha=1e-3,
-                                                     random_state=42,
-                                                     max_iter=5, tol=None))])
-pipeline_lsvm.fit(X_train, y_train)
+                                 ('SGDC', SGDClassifier(verbose=1, random_state=42))])
 
-y_predicted = pipeline_lsvm.predict(X_test)
+# Parameter values to test
+param_grid = {
+ 'TfIdf__max_features' : [None, 200, 300, 400],
+# 'TfIdf__min_df': [10, 20, 30],
+ 'TfIdf__ngram_range' : [(1,1)],
+ 'TfIdf__use_idf' : [True],
+ 'SGDC__loss' : ['hinge'],
+ 'SGDC__alpha' : [0.001, 0.01, 0.05, 0.1]
+}
 
-key_to_product = [x[1] for x in sorted(product_map.items())]
+grid_search_svc = GridSearchCV(pipeline_lsvm, param_grid, cv=10, verbose=1, n_jobs=6)
 
-conf_matrix_df = pd.DataFrame(data=confusion_matrix(y_test, y_predicted),
-                              index=key_to_product,
-                              columns=key_to_product)
+grid_search_svc.fit(X_train, y_train)
 
-ccf.plotConfusionMatrixHeatmap(conf_matrix_df, model_name='Linear SVM')
+# Check the score on the training and test sets
+grid_search_svc.score(X_test, y_test)
 
-# Classification report
-classification_rep = classification_report(y_test, y_predicted,
-                                           target_names=key_to_product)
+predicted = grid_search_svc.predict(X)
+complaints_processed['Predicted_Category_LSVM'] = predicted
 
-classification_report_dict = classification_report(y_test, y_predicted,
-                                              output_dict=True)
+y_predicted = grid_search_svc.predict(X_test)
 
+conf_matrix_df = pd.DataFrame(data=confusion_matrix(y_test, y_predicted),index=key_to_product_names,
+                              columns=key_to_product_names)
 
+plotConfusionMatrixHeatmap(conf_matrix_df, model_name='Linear SVM', figsize=(12, 10))
+
+classification_rep = classification_report(y_test, y_predicted,target_names=key_to_product_names)
+print(classification_rep)
