@@ -224,17 +224,16 @@ from sklearn.metrics import confusion_matrix, classification_report
 # Get the confusion matrix as dataframe
 y_predicted = grid_search_mnb.predict(X_test)
 
-key_to_product = [x[1] for x in sorted(product_map.items())]
+key_to_product_names = [x[1] for x in sorted(product_map.items())]
 
 conf_matrix_df = pd.DataFrame(data=confusion_matrix(y_test, y_predicted),
-                              index=key_to_product,
-                              columns=key_to_product)
+                              index=key_to_product_names, columns=key_to_product_names)
 
-ccf.plotConfusionMatrixHeatmap(conf_matrix_df, model_name='Naive Bayes')
+plotConfusionMatrixHeatmap(conf_matrix_df, model_name='Multinomial Naive Bayes', figsize=(12, 10))
 
 # Classification report
 classification_rep = classification_report(y_test, y_predicted,
-                                           target_names=key_to_product)
+                                           target_names=key_to_product_names)
 
 classification_report_dict = classification_report(y_test, y_predicted,
                                               output_dict=True)
@@ -269,7 +268,7 @@ y_predicted = grid_search_svc.predict(X_test)
 conf_matrix_df = pd.DataFrame(data=confusion_matrix(y_test, y_predicted),index=key_to_product_names,
                               columns=key_to_product_names)
 
-plotConfusionMatrixHeatmap(conf_matrix_df, model_name='Linear SVM', figsize=(12, 10))
+ccf.plotConfusionMatrixHeatmap(conf_matrix_df, model_name='Linear SVM', figsize=(12, 10))
 
 classification_rep = classification_report(y_test, y_predicted,target_names=key_to_product_names)
 print(classification_rep)
