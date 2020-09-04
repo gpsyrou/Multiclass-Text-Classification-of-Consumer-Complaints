@@ -150,6 +150,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2,
                                                     random_state=42,
                                                     stratify=y)
 
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7, 5))
+sns.barplot(x=sorted(y_train.unique()), y=y_train.groupby(y_train).count(), ax=ax1).set_title('Number of Complaints - Training Set')
+sns.barplot(x=sorted(y_test.unique()), y=y_test.groupby(y_test).count(), ax=ax2).set_title('Number of Complaints - Test Set')
+fig.tight_layout()
+plt.show()
+
 # What is the distribution of the categories (target) in the training set ?
     
 # 4. Create the pipeline
