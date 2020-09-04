@@ -162,6 +162,7 @@ plt.show()
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import SGDClassifier
 
 # Most of the algorithms do not work well when they have to deal with text data
 # in their raw form. To solve this issue we will work with some techniques such
@@ -229,7 +230,7 @@ key_to_product_names = [x[1] for x in sorted(product_map.items())]
 conf_matrix_df = pd.DataFrame(data=confusion_matrix(y_test, y_predicted),
                               index=key_to_product_names, columns=key_to_product_names)
 
-plotConfusionMatrixHeatmap(conf_matrix_df, model_name='Multinomial Naive Bayes', figsize=(12, 10))
+ccf.plotConfusionMatrixHeatmap(conf_matrix_df, model_name='Multinomial Naive Bayes', figsize=(12, 10))
 
 # Classification report
 classification_rep = classification_report(y_test, y_predicted,
