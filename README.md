@@ -24,3 +24,4 @@ Useful links:
 7. https://towardsdatascience.com/multi-class-text-classification-with-lstm-using-tensorflow-2-0-d88627c10a35
 8. https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html
 9. https://monkeylearn.com/blog/beginners-guide-text-vectorization/
+10. https://stackoverflow.com/questions/35360081/naive-bayes-vs-svm-for-classifying-text-data/35360814

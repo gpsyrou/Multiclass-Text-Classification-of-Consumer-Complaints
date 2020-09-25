@@ -85,8 +85,7 @@ def plotTopComplaints(input_df: pd.core.frame.DataFrame, agg_col: str,
 
 
 # Remove Stopwords
-def tokenize_sentence(sentence: str, rm_stopwords=True, rm_punctuation=True,
-                      rm_numbers=True, rm_classified=True) -> list:
+def tokenize_sentence(sentence: str, rm_stopwords=True, rm_punctuation=True, rm_numbers=True, rm_classified=True) -> list:
     """
     Tokenize a given string, and return the words as a list.
     The function offers functionality to exclude the words that are either
@@ -95,18 +94,17 @@ def tokenize_sentence(sentence: str, rm_stopwords=True, rm_punctuation=True,
     """
     tokenized = [x.lower() for x in word_tokenize(sentence)]
     
-    
-    if rm_classified == True:
+    if rm_classified:
         tokenized = [x for x in tokenized if x.lower() != 'xxxx' and
                     x.lower() != 'xx' and x.lower() != 'xx/xx/xxxx']
     
-    if rm_stopwords == True:
+    if rm_stopwords:
         tokenized = [x for x in tokenized if x not in stop_words]
      
-    if rm_punctuation == True:
+    if rm_punctuation:
         tokenized = [x for x in tokenized if x not in string.punctuation]
     
-    if rm_numbers == True:
+    if rm_numbers:
         tokenized = [x for x in tokenized if not x.isdigit()]
         
     return tokenized
