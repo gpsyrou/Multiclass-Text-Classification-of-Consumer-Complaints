@@ -25,7 +25,7 @@ os.chdir(project_dir)
 
 # Read the whole dataset into a dataframe
 complaints_df = pd.read_csv(os.path.join(project_dir,
-                                           'Data', 'complaints.csv'))
+                                           'data', 'complaints.csv'))
 
 complaints_df.dtypes
 # The only column that is not text is the ID of the complaint
@@ -57,7 +57,7 @@ complaints_df.Year.value_counts()
 # Identify the amount of times that each Category (Product) is present in our
 # dataset. We have no missing values for this column, so no imputation method
 # is necessary.
-from Functions import consumer_complaints_functions as ccf
+from utilities import consumer_complaints_functions as ccf
 
 ccf.plotNumberOfObservationsPerCategory(complaints_df, col='Product',
                                         by_year=False)
