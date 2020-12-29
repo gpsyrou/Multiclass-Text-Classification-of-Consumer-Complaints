@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Part 1 - Set up project directory and read dataset
-project_dir = r'C:\Users\george\Desktop\GitHub\Projects\Consumer_Complaints'
+project_dir = r'D:\GitHub\Projects\Consumer_Complaints'
 os.chdir(project_dir)
 
 # Read the whole dataset into a dataframe
